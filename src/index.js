@@ -3,6 +3,10 @@ const app = express();
 const NodeHog = require('nodehog');
 const ejs = require('ejs');
 const os = require('os');
+const config = require('./config/system-life');
+
+app.use(config.middlewares.healthMid);
+app.use('/', config.routers);
 
 app.set('view engine', 'ejs');
 

@@ -1,0 +1,22 @@
+version: "3"
+
+networks:
+  web:
+    external: true
+
+services:
+  stress-api:
+    container_name: stress-api
+    image: adolfombarros/stress-api:latest
+    restart: unless-stopped
+    networks:
+      - web
+    labels:
+      - "traefik.enable=true"
+      ## HTTP Routers
+      - "traefik.http.routers.stress-api-rtr.entrypoints=http"
+      - "traefik.http.routers.stress-api-rtr.rule=Host(`localhost`)"
+      ## Middlewares
+      - "traefik.http.routers.stress-api-rtr.middlewares=chain-no-auth@file" # No Authentication
+      ## HTTP Services
+      - "traefik.http.services.stress-api-svc.loadbalancer.server.port=8080"

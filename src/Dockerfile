@@ -7,7 +7,7 @@
 #CMD [ "node", "index.js" ]
 
 FROM node:lts-alpine
-RUN mkdir -p /home/node/app/node_modules && chown -R node:node /home/node/app
+RUN mkdir -p /home/node/app/node_modules && mkdir -p /home/node/app/views && chown -R node:node /home/node/app 
 USER node
 WORKDIR /home/node/app
 COPY --chown=node:node package*.json ./
